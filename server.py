@@ -59,7 +59,8 @@ def main():
 
     while True:
         client,addr = s.accept()
-        handler(client,str(addr[0]))
+        th = Thread(target=handler,args(client,str(addr[0])))
+        th.start()
 
 if __name__ == '__main__':
     main()
