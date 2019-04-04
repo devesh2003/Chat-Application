@@ -5,12 +5,7 @@ from threading import Thread
 clients = {}
 messages = []
 
-def start_broadcast_server():
-    ip = "127.0.0.1"
-    port = 2000
-    ss = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    ss.bind((ip,port))
-    ss.listen()
+def beta(s,addr):
     while True:
         sleep(3)
         global messages
@@ -18,23 +13,32 @@ def start_broadcast_server():
             if(messages[0] == None):
                 pass
             for msg in messages:
-                broadcast_message(msg)
+                broadcast_message(msg,s,addr[0])
+                messages.remove(msg)
         except IndexError:
             pass
 
+def start_broadcast_server():
+    ip = "127.0.0.1"
+    port = 2000
+    ss = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    ss.bind((ip,port))
+    ss.listen()
 
-def broadcast_message(msg):
-    global messages
-    for client in clients:
-        clients[client].send(msg.encode())
-        sleep(1)
-        clients[client].send(str(client).encode())
-    print("[*] Message : %s broadcasted"%(msg))
+    while True:
+        client,addr = ss.accept()
+        t = Thread(target=beta,args=(client,addr))
+        t.start()
+
+def broadcast_message(msg,s,addr):
+    s.send(msg.encode())
+    sleep(1)
+    s.send(str(addr).encode())
 
 def handler(client,addr):
-    global clients
+    global clients,messages
     clients[addr] = client
-    client.send("WELCOME".encode())
+    #client.send("WELCOME".encode())
     while True:
         message = client.recv(409600).decode()
         messages.append(message)

@@ -11,7 +11,7 @@ def receive(s):
     while True:
         msg = ss.recv(409600).decode()
         addr = ss.recv(1024).decode()
-        print("\n%s: %s"%(msg))
+        print("\n%s: %s"%(msg,addr))
         print(">>")
 
 def main():
@@ -22,6 +22,7 @@ def main():
     s.connect((ip,port))
     print("[*] Connected")
     receiver_thread = Thread(target=receive,args=(s,))
+    receiver_thread.start()
     while True:
         msg = input(">>")
         s.send(msg.encode())
