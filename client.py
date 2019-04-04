@@ -2,7 +2,7 @@ import socket
 from threading import Thread
 
 def receive(s):
-    ip = "127.0.0.1"
+    ip = "142.93.197.240"
     port = 2000
 
     ss = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -15,7 +15,7 @@ def receive(s):
         print(">>")
 
 def main():
-    ip = "127.0.0.1"
+    ip = "142.93.197.240"
     port = 2003
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     print("[*] Connecting to server...")

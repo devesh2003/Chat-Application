@@ -19,7 +19,7 @@ def beta(s,addr):
             pass
 
 def start_broadcast_server():
-    ip = "127.0.0.1"
+    ip = "142.93.197.240"
     port = 2000
     ss = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     ss.bind((ip,port))
@@ -44,7 +44,7 @@ def handler(client,addr):
         messages.append(message)
 
 def main():
-    ip = "127.0.0.1"
+    ip = "142.93.197.240"
     port = 2003
     address = (ip,port)
 
