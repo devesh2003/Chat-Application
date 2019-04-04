@@ -11,7 +11,7 @@ def receive(s):
     while True:
         msg = ss.recv(409600).decode()
         addr = ss.recv(1024).decode()
-        print("\n%s: %s"%(msg,addr))
+        print("\n%s: %s"%(addr,msg))
         print(">>")
 
 def main():

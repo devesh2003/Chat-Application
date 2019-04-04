@@ -38,6 +38,7 @@ def broadcast_message(msg,s,addr):
 def handler(client,addr):
     global clients,messages
     clients[addr] = client
+    print(clients)
     #client.send("WELCOME".encode())
     while True:
         message = client.recv(409600).decode()
